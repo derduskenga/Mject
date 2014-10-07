@@ -1,5 +1,3 @@
-#ignore compiled classes
-*.class
 #ignore files under lib folder. These are jar files
 lib/
 #the backup folder
