@@ -1,0 +1,12 @@
+#ignore compiled classes
+*.class
+#ignore files under lib folder. These are jar files
+lib/
+#the backup folder
+/backup/
+
+#ignore all untracked temp swap files
+*.swp
+
+#ignore log files
+*.log

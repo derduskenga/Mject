@@ -1,0 +1,27 @@
+.details{
+	 
+		padding:10px 0px 0px 30px;
+		margin:0px 0px 30px 10px;
+}
+.post-text{
+		margin:0px 10px 0px 10px;
+		}
+.req-pic img{
+		max-height:100px;
+		max-width:100px;
+}
+.comment{
+	border-radius:5px;
+	 
+}
+.status-pic img{
+	
+	max-height:50px;
+	
+}
+
+.post-pic img{
+	border-radius: 5px;
+	max-width: 60px;
+	max-height: 80px;
+}
