@@ -1,3 +1,0 @@
-[submodule "WEB-INF/classes/com/harambesa/DBConnection"]
-	path = WEB-INF/classes/com/harambesa/DBConnection
-	url = /opt/tomcat/webapps/mjet/WEB-INF/classes/com/harambesa/DBConnection
