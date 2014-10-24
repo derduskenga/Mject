@@ -21,7 +21,7 @@
 		<li class="dropdown">
 			<a class="dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
 			<ul class="dropdown-menu">
-				<li><a href=""><span class="fa fa-cog"></span>Settings</a></li>
+				<li><a href="../settings/"><span class="fa fa-cog"></span>Settings</a></li>
 				<li class="divider"></li>
 				<li><a href="../logout"><span class="glyphicon glyphicon-off"></span>Log Out</a></li>
 			</ul>

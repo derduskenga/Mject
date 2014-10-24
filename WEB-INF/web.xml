@@ -129,6 +129,33 @@
 <servlet-mapping>
 	<servlet-name>UserData</servlet-name>
 	<url-pattern>/userdata/*</url-pattern>
-</servlet-mapping>   
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>settings</servlet-name>
+	<servlet-class>com.harambesa.settings.Settings</servlet-class>
+</servlet> 
+<servlet-mapping>
+	<servlet-name>settings</servlet-name>
+	<url-pattern>/allsettings/*</url-pattern>
+</servlet-mapping> 
+
+<servlet>
+	<servlet-name>editProfile</servlet-name>
+	<servlet-class>com.harambesa.settings.profileEdit</servlet-class>
+</servlet> 
+<servlet-mapping>
+	<servlet-name>editProfile</servlet-name>
+	<url-pattern>/editProfileServlet/*</url-pattern>
+</servlet-mapping> 
+
+<servlet>
+	<servlet-name>adminServlet</servlet-name>
+	<servlet-class>com.harambesa.admin.admin</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>adminServlet</servlet-name>
+	<url-pattern>/adminlogin</url-pattern>
+</servlet-mapping> 
     
 </web-app>

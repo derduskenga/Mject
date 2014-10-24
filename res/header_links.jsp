@@ -56,3 +56,4 @@
 <script type="text/javascript" src="../res/js/landing.js"></script> 
 <script type="text/javascript" src="../res/js/connections.js"></script> 
 <script type="text/javascript" src="../res/js/search.js"></script>
+<script type="text/javascript" src="../res/js/commonfunctions.js"></script> 

@@ -114,4 +114,22 @@
 	<url-pattern>/socialmarket/*</url-pattern>
 </servlet-mapping>
 
+<servlet>
+	<servlet-name>settings</servlet-name>
+	<servlet-class>com.harambesa.settings.profileEdit</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>settings</servlet-name>
+	<url-pattern>/profileEdit/*</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>ProfileEdit</servlet-name>
+	<servlet-class>com.harambesa.settings.profileEdit</servlet-class>
+</servlet> 
+<servlet-mapping>
+	<servlet-name>ProfileEdit</servlet-name>
+	<url-pattern>/editProfileServlet/*</url-pattern>
+</servlet-mapping>
+
 </web-app>

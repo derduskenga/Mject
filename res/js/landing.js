@@ -11,7 +11,7 @@ $(document).ready(function() {
 		message: 'This value is not valid',
         live: 'disabled',
         submitHandler: function(validator, form, submitButton) {			
- 		    var username=$("#j_username").val();
+ 		    var username=$("#j_username").val(); // get value of the input element with id of j_username and assigning to username variable
  			var password=$("#j_password").val();
 			//alert("Password : " + cpassword + "\nPassword2 : " + r_cpassword)
             $.get("../request_handler",

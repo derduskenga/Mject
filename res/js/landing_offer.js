@@ -225,6 +225,7 @@ $(document).ready(function(){
 		    }  
 		}
 	});	
+
 	$.post("../mapping/offer_mapping.jsp", {tag:"pull_offer_posts"}, function(data){
 		if(data['status'] == 'OK'){
 			var arrO = data['offers'];
