@@ -1,0 +1,11 @@
+#the backup folder
+/backup/
+
+#ignore all untracked temp swap files
+*.swp
+
+#ignore log files
+*.log
+
+# ignore classes if needed the war file contains this classes
+WebContent/WEB-INF/classes/

@@ -1,0 +1,24 @@
+//Queries
+
+SELECT entitys.first_name,entitys.last_name,entitys.profile_pic_path,donation_requests.donation_request_id,donation_requests.entity_id,donation_requests.donation_request_date,
+donation_requests.expected_funding_date,
+donation_requests.donation_request_amount,donation_requests.request_summary,donation_requests.details,programmes.programme_name,currency.currency_symbol
+FROM donation_requests,entitys,programmes,currency
+WHERE donation_requests.complete=FALSE
+AND entitys.entity_id=donation_requests.entity_id
+AND programmes.programme_id=donation_requests.programme_id
+AND currency.currency_id=donation_requests.currency_id
+..................................................................................
+
+//fetch comments for each post
+SELECT donation_request_comments.donation_requests_comment_id,donation_request_comments.comment_owner_entity_id,
+entitys.first_name,entitys.last_name,entitys.profile_pic_path,donation_request_comments.donation_request_comment_text,
+donation_request_comments.donation_request_comment_date
+FROM donation_request_comments,entitys
+WHERE donation_request_comments.donation_request_id=1
+AND entitys.entity_id = donation_request_comments.comment_owner_entity_id
+
+
+
+
+
