@@ -1,6 +1,0 @@
-Built With Bootstrap bootstrap-3.1.1-dist
-
-Other are:
-
-bootstrap-validator v. 0.4.4
-select2-3.4.8

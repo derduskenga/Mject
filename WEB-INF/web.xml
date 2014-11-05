@@ -14,6 +14,15 @@
 	</resource-ref>
     <description>
     </description>
+
+<filter>
+	<filter-name>adminFilter</filter-name>
+	<filter-class>com.harambesa.settings.adminFilter</filter-class>
+</filter>
+<filter-mapping>
+	<filter-name>adminFilter</filter-name>
+	<url-pattern>/adminlogin</url-pattern>
+</filter-mapping>
     
     
 <servlet>
@@ -87,6 +96,15 @@
 </servlet-mapping>
 
 <servlet>
+	<servlet-name>adminSessionLogout</servlet-name>
+	<servlet-class>com.harambesa.gServices.adminLogout</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>adminSessionLogout</servlet-name>
+	<url-pattern>/adminLogout/*</url-pattern>
+</servlet-mapping>
+
+<servlet>
         <servlet-name>MaterialOfferServlet</servlet-name>
         <servlet-class>com.harambesa.gServices.MaterialOffer</servlet-class>
 </servlet>
@@ -156,6 +174,14 @@
 <servlet-mapping>
 	<servlet-name>adminServlet</servlet-name>
 	<url-pattern>/adminlogin</url-pattern>
+</servlet-mapping>
+<servlet>
+	<servlet-name>adminlogs</servlet-name>
+	<servlet-class>com.harambesa.admin.adminLogs</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>adminlogs</servlet-name>
+	<url-pattern>/adminLogs</url-pattern>
 </servlet-mapping> 
     
 </web-app>

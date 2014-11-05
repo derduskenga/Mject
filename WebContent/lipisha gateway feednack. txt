@@ -1,0 +1,9 @@
+{"status":
+  {"status_code":2000,
+  "status_description":"Missing or invalid parameters.",
+  "status":"FAIL"},
+"content":{"invalid_parameters":"'The Card Number field must be exactly 16 characters in length.',"}}
+
+{"status":{"status_description":"Transaction Could not be  Authorized","status_code":5000,"status":"FAIL"},"content":{"reason":"Invalid ExpiryDate (082012)"}}
+
+gateway feedback {"status":{"status_description":"Transaction Authorized Successfully","status_code":"0000","status":"SUCCESS"},"content":{"transaction_index":"{C3F3B9D9-B8B5-4D7F-959B-2145EF21D0F1}","transaction_reference":35160}}

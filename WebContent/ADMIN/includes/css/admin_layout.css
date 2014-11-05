@@ -1,0 +1,30 @@
+#left_side_bar{
+	width:300px;
+	min-height: 250px;
+	max-height: 500px;
+	background-color: white;
+	padding: left;
+	border-radius: 5px;
+	margin-top: 15px;
+}
+#content_area{
+	margin-top: -250px;
+	min-height: 250px;
+	margin-left: 305px;
+	width: auto;
+	border-radius: 5px;
+	background-color: white;
+}
+#right_side_bar{
+	min-height: 250px;
+	margin-left: 1100px;
+	border-radius: 5px;
+	margin-top: -250px;
+	background-color: white;
+}
+#swap_area{
+	padding-left: 10px;
+	padding-top: 5px;
+}
+#create_admin{
+}
