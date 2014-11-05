@@ -13,7 +13,6 @@ $(document).ready(function() {
         submitHandler: function(validator, form, submitButton) {			
  		    var username=$("#j_username").val();
  			var password=$("#j_password").val();
-
             var tagValue = $('#tag').html();
             var referer = $('#referer').html();
             var loginTag = "sign_in"; 

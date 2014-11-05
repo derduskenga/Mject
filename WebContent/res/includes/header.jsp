@@ -14,8 +14,7 @@
 		<a href="../user-dashboard" title="my dashboard"><span class="glyphicon glyphicon-user"></span></a>
 		<a href="../home"><span class="fa fa-home"></span></a>
 		<a href="../charity-market"><span class="fa fa-line-chart"></span></a>
-		<a href="../admin"><span class=""></span>admin</a>
-			
+		<a href="../admin"><span class=""></span>admin</a>			
 		<a href="#" data-toggle="modal"   data-target="#common-message-modal"><span class="glyphicon glyphicon-envelope" ><span class="badge message-badge">2</span></a>
 	</div>
 	<div class="col-md-1 float-middle-ver">

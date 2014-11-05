@@ -41,7 +41,7 @@
 <script type="text/javascript" src="../res/js/import.js" ></script>
 <script type="text/javascript" src="../res/js/payment.js" ></script>
 <script type="text/javascript" src="../res/js/email_invite.js" ></script>
-
+<script type="text/javascript" src="../res/js/notification_rest_handle.js" ></script>
 <script type="text/javascript" src="../res/js/messages.js" ></script>
 <script type="text/javascript" src="../res/js/jquery.loadingdotdotdot.js"></script>   
 </head>

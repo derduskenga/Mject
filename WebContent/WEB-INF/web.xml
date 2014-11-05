@@ -14,9 +14,9 @@
 	</resource-ref>
     <description>
     </description>
-<!-- expire session after 5 minutes -->
+<!-- expire session after 20 minutes -->
 <session-config>
-    <session-timeout>1</session-timeout>
+    <session-timeout>20</session-timeout>
 </session-config>
 
 <servlet>
@@ -133,6 +133,15 @@
 	<servlet-name>UserData</servlet-name>
 	<url-pattern>/userdata/*</url-pattern>
 </servlet-mapping>   
+
+<servlet>
+	<servlet-name>Notifications</servlet-name>
+	<servlet-class>com.harambesa.notification.NotificationProcessor</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>Notifications</servlet-name>
+	<url-pattern>/noti/*</url-pattern>
+</servlet-mapping>
 
 <!-- *********************** SETTINGS MODULE PATHS ******************************* -->
 <servlet>

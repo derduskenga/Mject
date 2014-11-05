@@ -1,5 +1,6 @@
 $(document).ready(function(){
 			var user = getUrlVars()["user"]; 
+
 			if(user==undefined || user==null || !user.trim()){
 				showNoUser();
 			}else if(Math.floor(user) == user && $.isNumeric(user)){
@@ -19,6 +20,7 @@ function fetchUserData(user){
  						timeout: 30000, // timeout after 30 seconds
 						dataType: "json", //JSON
 						data: {tag:'fetchuserdata', user: user}
+
 					});	
 					newDataRequest.done(function(data){
 						if(data["success"]==0){
@@ -197,6 +199,7 @@ function applyConErrorCss(){
 
 function displayUserDataError(message){
 		alert("Error="+message);
+
 }
 
 

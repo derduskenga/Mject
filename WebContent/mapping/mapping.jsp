@@ -10,11 +10,12 @@
 <%@page import="java.sql.Timestamp"%>
 <%@page import="java.util.*"%>
 <%@page import = "com.harambesa.gServices.HarambesaUtils"%>
+<%@page import = "com.harambesa.notification.Notifications"%> 
+<%@page import = "com.harambesa.Utility.Utilities"%>
 
 <%
   if(request.getSession().getAttribute("entity_id")==null){
-	  //user not logged
-	  //redirect to mjet/login
+
 	  JSONObject ob = new JSONObject();
 	  response.sendRedirect("../login/");
 	  ob.put("success",0);
@@ -139,10 +140,6 @@
 		    HttpSession _session = request.getSession();
 		    
 		    java.util.Date now = new java.util.Date();
-		
-		  // SimpleDateFormat ft = new SimpleDateFormat ("E yyyy.MM.dd 'at' hh:mm:ss");
-		
-		    //out.print( "<h2 align=\"center\">" + ft.format(dNow) + "</h2>");
 		    
 		    String post_date = now.toString();
 		
@@ -150,13 +147,6 @@
 		    String f_name = (String)_session.getAttribute("f_name");
 		    String l_name = (String)_session.getAttribute("l_name");
 		    String profile_pic_path = (String)_session.getAttribute("profile_pic_path");
-		  // String entity_id = (String)_session.getAttribute("entity_id");
-		    
-		  // String f_name = "Derdus";
-		  // String l_name = "Mosoti";
-		    //String profile_pic_path = "../res/images/makau_post_pic.jpg"; 
-		    //String user_id = "1";
-		    
 		    obj.put("success", 1);
 		    obj.put("message", "You have made a post");
 		    obj.put("full_name",f_name + " " + l_name);
@@ -209,8 +199,7 @@
 		    " AND entitys.entity_id=donation_requests.entity_id " +
 		    " AND programmes.programme_id=donation_requests.programme_id" +
 		    " AND currency.currency_id=donation_requests.currency_id" +
-		    " ORDER BY donation_requests.donation_request_id ASC";
-		    
+		    " ORDER BY donation_requests.donation_request_id ASC";	    
 	      
 	      try{
 	      
@@ -272,7 +261,8 @@
 				
 					outerJSONObject.put("requests",outerJSONArray);
 					outerJSONObject.put("status","OK");
-					outerJSONObject.put("message","Load more requests...");      
+					outerJSONObject.put("message","Load more requests...");     
+					 response.setContentType("application/json");
 					out.println(outerJSONObject);  
 			}
 	      
@@ -291,12 +281,6 @@
 	      String l_name = (String)_session.getAttribute("l_name");
 	      String profile_pic_path = (String)_session.getAttribute("profile_pic_path");
 	      String entity_id = (String)_session.getAttribute("entity_id");
-	      
-	      //String f_name = "Derdus";
-	      //String l_name = "Mosoti";
-	      //String profile_pic_path = "../res/images/makau_post_pic.jpg"; 
-	      //String entity_id = "1";
-	      
 	      GlobalDresser globalDresser = new GlobalDresser(entity_id);
 	      
 	      JSONObject obj = new JSONObject();
@@ -309,43 +293,38 @@
 	      //object.put("entity_id",entity_id);
 	      response.setContentType("application/json");
 	      out.print(obj);
-	      
-	  }else if(tag.equals("post_new_comment")){
-	      
+	  }else if(tag.equals("post_new_comment")){      
 	      String donation_request_id = request.getParameter("donation_request_id");
 	      String entity_id = request.getParameter("entity_id");
 	      String comment_text = request.getParameter("comment_text").trim();
 	JSONObject obj = new JSONObject();
 	if(!comment_text.equals("")){
-		//String donation_request_id = "93";
-		//String entity_id = "1";
-		//String comment_text = "working";
-		
+
+	
 		DBConnection db = new DBConnection();
-		String query  = "INSERT INTO donation_request_comments (donation_request_id,donation_request_comment_text,comment_owner_entity_id) VALUES('" + donation_request_id + "','" + comment_text + "','"  + entity_id + "')";
-		//System.out.println(query);
+		String query  = "INSERT INTO donation_request_comments (donation_request_id,donation_request_comment_text,comment_owner_entity_id) VALUES('" + donation_request_id + "','" + comment_text + "','"  + entity_id + "')";	
+		Notifications noti = new Notifications((String)request.getSession().getAttribute("entity_id"));
+		String []recipients  = noti.fetchDonationRequestOwner(donation_request_id);
 		
+		String type = "donation_request_comment";
+		String notification_url = Utilities.NOTIFICATION_URL + "home/?type=" + type + "&dri=" + donation_request_id;
+		String notification_msg = "<a href='../user/?user=" + (String)request.getSession().getAttribute("entity_id") + "'>" + new GlobalDresser((String)request.getSession().getAttribute("entity_id")).getNames() +"</a> commented on your donation request";
+		String notification_originator = (String)request.getSession().getAttribute("entity_id");
+		noti.saveNotification(notification_url, notification_msg, notification_originator,recipients);
 		
 		try{
 			ResultSet result_ = db.executeQuery(query,"t");
-			
-			// java.util.Date date= new java.util.Date();
-			//response.setContentType("application/json");
-			
-			
+
 			if(result_.next()){
 			
 				int record_id = result_.getInt(1);
 				obj.put("success",1);
 				obj.put("comment_id",record_id);
 				obj.put("message","Comment has been post");
-				obj.put("coment_time",returnedTimeStamp("donation_request_comments","donation_request_comment_date",record_id,"donation_requests_comment_id"));
-				
+				obj.put("coment_time",returnedTimeStamp("donation_request_comments","donation_request_comment_date",record_id,"donation_requests_comment_id"));				
 			}else{
-				
 				obj.put("success",0);
 				obj.put("message","An error occured. Your comment will not be seen");
-			
 			} 
 		
 		}catch(SQLException sqle){
@@ -455,10 +434,6 @@
 	}else if(tag.equals("connect")){
 		String requestor = request.getParameter("sender");
 		String requestee = request.getParameter("receiver");
-		
-		//String requestor = "1";
-		//String requestee = "2";
-		//DBConnection db = new DBConnection();
 		JSONObject obj = new JSONObject();
 		GlobalDresser gb = new GlobalDresser(requestor);
 		
@@ -494,23 +469,14 @@
 		out.print(obj);
 	
 	}else if(tag.equals("save")){
-	
 		String from = request.getParameter("from");
 		String to = request.getParameter("to");
 		String msg = request.getParameter("msg");
-		
-		//String from = "1";
-		//String to = "2";
-		//String msg = "just testing";
-		
 		out.print(saveMessage(msg,from,to));
-	
 	}else if(tag.equals("requestedamount")){
-	
 		out.print(fetchRequestedAmount(request.getParameter("id")));
 		//out.print(fetchRequestedAmount("1"));
 	}else if(tag.equals("finalise_donation_by_account")){
-	
 		String donor = request.getParameter("donor");
 		String donee = request.getParameter("donee");
 		String amount_requested = request.getParameter("amount_requested");

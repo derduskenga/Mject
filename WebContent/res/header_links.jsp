@@ -59,3 +59,4 @@
 <script type="text/javascript" src="../res/js/settings/settings.js"></script>
 <script type="text/javascript" src="../res/js/admin/admin.js"></script>
 <script type="text/javascript" src="../res/js/user-dashboard/user_dashboard.js"></script>
+

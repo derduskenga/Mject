@@ -13,12 +13,10 @@
 	final Logger logger = LogManager.getLogger();
 	killSession(request, logger);
 %>
-
 <%!
 	public void killSession(HttpServletRequest request, Logger logger){
 		try{
 			HttpSession session = request.getSession(false);
-
 			if(session != null){
 				session.invalidate();
 			}
