@@ -9,3 +9,4 @@
 
 # ignore classes if needed the war file contains this classes
 WebContent/WEB-INF/classes/
+dist/
