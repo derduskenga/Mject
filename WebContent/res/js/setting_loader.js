@@ -3,6 +3,7 @@
         e.preventDefault();//prevents the defaul action loaded page 
         $(this).addClass('active').siblings().removeClass('active');
         $(".settings_page").empty();
+        $("#errorArea").empty();
         $(".settings_page").load("include/userProfile.jsp", function(){
              fetchProfileData()
         });

@@ -4,8 +4,6 @@ import java.sql.*;
 import com.harambesa.DBConnection.DBConnection;
 import com.harambesa.gServices.Offer;
 import com.harambesa.gServices.HarambesaUtils;
-import com.harambesa.notification.Notifications;
-import com.harambesa.Utility.Utilities;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 
@@ -51,6 +49,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.fileupload.FileUpload;
 import org.apache.commons.fileupload.DiskFileUpload;
 
+
 import java.security.NoSuchAlgorithmException;
 
 public class MaterialOffer extends HttpServlet {
@@ -76,6 +75,8 @@ public class MaterialOffer extends HttpServlet {
 		String tag=null;
 		if(request.getParameter("tag") == null ){
 		      log.severe("Tag is null");
+		      //response.sendRedirect("error/");
+		      //write a send redir 
 		}else{
 		
 			try{
@@ -226,15 +227,6 @@ public class MaterialOffer extends HttpServlet {
 					obj.put("other_photo_one_path","../materialofferphotos/" + rs.getString(3));
 					obj.put("other_photo_two_path","../materialofferphotos/" + rs.getString(4));
 					obj.put("offer_type","material");
-					
-					String type = "m_offer";
-					String notification_url = Utilities.NOTIFICATION_URL + "type=" + type + "&oi=" + rs.getString(1);
-					String notification_msg = "<a href='../user/?user=" + id + "'>" + names + "</a> placed a material(" + m_name + ") offer";
-					String notification_originator = id;
-				
-					Notifications noti = new Notifications(id);
-					String [] recipients = noti.fetchNotificationRecipients();
-					noti.saveNotification(notification_url,notification_msg,notification_originator,recipients);
 				}else{
 					obj.put("success",0);
 					obj.put("message","An error ocured");

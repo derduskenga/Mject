@@ -64,94 +64,38 @@
 		<!--====-->
 		<div id="content" class="row">
 			<!--==content left============== -->
-			<div id="main_content_left" class="col-xs-2 col-xs-offset-1">
-<<<<<<< HEAD
-				
+			<div id="main_content_left" class="col-xs-2 col-xs-offset-1">				
 					<!-- <div class="row left-link profile-pic" id="profile-pic-section">
 							
 					</div> -->
 					<ul class="nav nav-pills nav-stacked">
-						<li class="active" id="profile_loader">
-							<a href="#">Profile</a>
-						</li>
-					</ul>
-					<br>
-					<ul class="nav nav-pills nav-stacked">
-						<li class="active" id="security_settings_loader">
-							<a href="#">Security Settings</a>
-						</li>
+						<li class="active" id="profile_loader"><a href="#">Profile</a></li>
+						<li id="passwordLoader"><a href="">Password Reset</a></li>
+						<li id="emailNotificationsLoader"><a href="">Email Notifications</a></li>
 					</ul>	
 			</div><!--=============content left============-->
 			<!--==content middle============== -->
 			<div id="main_content_middle" class="col-xs-6">
-				 <div class="settings_page">
-
-				 </div>
-=======
-				<ul class="nav nav-pills nav-stacked">
-					<li class="active"><a href="">Profile</a></li>
-					<li id="passwordLoader"><a href="">Password Reset</a></li>
-					<li id="emailNotificationsLoader"><a href="">Email Notifications</a></li>
-
-				</ul>	 
-			</div><!--=============content left============-->
-			<!--==content middle============== -->
-			<div id="main_content_middle" class="col-xs-6">
 				<div id="errorArea"></div>
-				<div class="settings_page">
-					<div class="text-center">
+				 <div class="settings_page">
+                    <div class="text-center">
 						<img src="../res/images/loading_site_green_small.gif">
 						<span> .......... Please wait as data is being loaded</span>
 					</div>
-				</div> 
->>>>>>> 8a007329ddce8f0999eda73d05179b7214539c07
+				 </div>
 			</div>
 			<!--=========== content middle-->
 			<!--==content right============== -->
-			<div id="main_content_right" class="col-xs-3">
-<<<<<<< HEAD
-				
-				<!-- <div class="account-summary">
-					<div class="harambesa-balance">
-						<div id = "balance" class="row">
-							HaraMbesa Balance: 
-						</div>
-						<div class="row pad-top">
-							<a href="../deposits" class="pad-left">Deposit</a> &nbsp;|&nbsp;<a href="../withdraw" class="pad-left">Withdraw</a>
-						</div>
-					</div>
-					<div class="social-points">
-						<div id = 'points' class="row float-middle-ver">
-							Social Points: 
-						</div>
-						<div class="row pad-top">
-							<a href="../charity-market" class="pad-left">Put On Sale</a>
-						</div>
-					</div>
-				</div> -->
+			<div id="main_content_right" class="col-xs-3">				 
 			</div><!--=========== content right====-->
 			<!--===========================================================================================-->
 		</div> <!--/content-->
-		<!-- Bid Points Modal -->
-				
-		<!-- End Bid Points Modal -->
-=======
-				 
-			</div><!--=========== content right====-->
-			<!--===========================================================================================-->
-		</div> <!--/content-->
-		 
->>>>>>> 8a007329ddce8f0999eda73d05179b7214539c07
 		<!-- footer========================== -->
 		<%@ include file="../res/includes/footer.jsp" %>
 		<!-- ===end footer========================= -->
 	</div> <!-- container-fluid -->
 </body>
-<<<<<<< HEAD
 </html>
 <%
 }
 %>
-=======
-</html>
->>>>>>> 8a007329ddce8f0999eda73d05179b7214539c07

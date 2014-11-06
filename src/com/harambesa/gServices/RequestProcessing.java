@@ -747,6 +747,25 @@ public class RequestProcessing extends HttpServlet {
 							log.severe("Could not send mail to user because error occured while retrieving/inserting token id. User Id is "+id);
 						}
 			}
+			//send mail to admin
+			public void sendMailToAdmin(final String f_name,final String email, final String id){				    
+		    //generate a random token and insert it and the user id
+		   final String token = getRandomMDString();
+		   final String token_id = updateAdminTokenTable(id, token);
+		    if(!(token_id.equals(""))){
+			Thread t = new Thread() {
+				public void run() {
+					Mail mail=new Mail();
+					mail.sendAdminMail(f_name,email, token,token_id);
+				}
+			};
+			t.start();
+			}
+			else{
+				//log this error:
+				log.severe("Could not send mail to user because error occured while retrieving/inserting token id. User Id is "+id);
+			 }
+           }
 			//update activation token table
 			public String updateTokenTable(String id, String token){
 			DBConnection db=new DBConnection(); 
@@ -779,6 +798,41 @@ public class RequestProcessing extends HttpServlet {
 			}finally{
 					try{db.closeDB();}catch(Exception e1){}
 			}
+	}
+//update the admin toke table
+	public String updateAdminTokenTable(String id, String token){
+        
+        			DBConnection db=new DBConnection(); 
+			Connection con= db._getConnection();			
+			try{
+					String sql=" INSERT INTO admin_account_tokens( activation_token_entity_id, activation_token)";
+								sql+=" VALUES (?,?) RETURNING activation_token_id";
+					
+					PreparedStatement preparedStatement = con.prepareStatement(sql);
+					preparedStatement.setInt(1,Integer.parseInt(id));
+					preparedStatement.setString(2, token);
+					
+					ResultSet rslt= preparedStatement.executeQuery();
+					
+					if(rslt !=null){
+						db.closeDB();
+						if(rslt.next())
+							return rslt.getString(1);
+						else
+							return "";
+					}else{
+						log.severe("Error inserting activation tokens for id "+id+" and token:"+token);
+						db.closeDB();
+						return "";
+					}		
+			}catch(SQLException sqle){
+					log.severe("Exception:"+getStackTrace(sqle));
+					log.severe("Actual DB Error:"+db.getLastErrorMsg());
+					return "";
+			}finally{
+					try{db.closeDB();}catch(Exception e1){}
+			}
+
 	}
 	
 	private void giveSuccessFeedBack(String message){

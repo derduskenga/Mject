@@ -18,7 +18,7 @@
 		// email notifications
 		$('#emailNotificationsLoader').click(function(e){
 			e.preventDefault();
-			$("#errorArea").html(" ");
+			$("#errorArea").empty();
 			$(this).addClass('active').siblings('li').removeClass('active');
 			emailNotifications();
 		});
