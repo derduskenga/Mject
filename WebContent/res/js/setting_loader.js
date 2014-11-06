@@ -2,11 +2,10 @@
    $('#profile_loader').click(function(e){
         e.preventDefault();//prevents the defaul action loaded page 
         $(this).addClass('active').siblings().removeClass('active');
-        $('#profile').show(500);//div to be loaded'id and the sho spee
-        // $('.settings_page').load("include/demo.html");
-        fetchProfileData();
-
-
+        $(".settings_page").empty();
+        $(".settings_page").load("include/userProfile.jsp", function(){
+             fetchProfileData()
+        });
    });
 
  });
@@ -47,9 +46,8 @@
 								
 								$('#profile').html(profileDiv);
 								$('#gender').val(data['gender']);
-								$('#orgname1').val(data['org']);
-
-								$('#countrys').val(data['cntry']);
+								$('#orgname1').val(data['org']); 
+								$('#countrys').append("<option selected value="+data['cntry']+">"+ data['cntry']+"");
 								$('#dateofbirth').val(data['dob']);
 								$('#dateofbirth').html(date_picker);
 								$('#occupation').val(data['occ']);

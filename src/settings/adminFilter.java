@@ -21,6 +21,7 @@ public class adminFilter implements Filter{
 
    public void init(FilterConfig filterConfig) throws ServletException{
    	 this.filterConfig = filterConfig;
+     log=Logger.getLogger(adminFilter.class.getName());
    }
 
    public void destroy(){
@@ -30,6 +31,7 @@ public class adminFilter implements Filter{
    public void doFilter(ServletRequest req, ServletResponse res, FilterChain filterChain) throws IOException, ServletException{
           	HttpServletResponse response = (HttpServletResponse)res;
           	HttpServletRequest request = (HttpServletRequest)req;
+            log.info(request.getRequestURI());
 
           	
             if(request.getParameter("tag").equals("log_in")){
