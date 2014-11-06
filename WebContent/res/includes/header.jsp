@@ -10,18 +10,23 @@
 			</div>
 	</div>
 	<div class="icons col-md-3 col-md-offset-1 float-middle-ver">
-
-		<a href="../myactivities"><span class="glyphicon glyphicon-user"></span></a>
+ 
+		<a href="../user-dashboard" title="my dashboard"><span class="glyphicon glyphicon-user"></span></a>
 		<a href="../home"><span class="fa fa-home"></span></a>
 		<a href="../charity-market"><span class="fa fa-line-chart"></span></a>
-			
+		<a href="../admin"><span class=""></span>admin</a>			
+ 
 		<a href="#" data-toggle="modal"   data-target="#common-message-modal"><span class="glyphicon glyphicon-envelope" ><span class="badge message-badge">2</span></a>
 	</div>
 	<div class="col-md-1 float-middle-ver">
 		<li class="dropdown">
 			<a class="dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
 			<ul class="dropdown-menu">
-				<li><a href="../settings/"><span class="fa fa-cog"></span>Settings</a></li>
+ 
+				<li><a href="../settings"><span class="fa fa-cog"></span>Settings</a></li>
+				<li class="divider"></li>
+				<li><a href="../settings"><span class="fa fa-"></span>Reports</a></li>
+ 
 				<li class="divider"></li>
 				<li><a href="../logout"><span class="glyphicon glyphicon-off"></span>Log Out</a></li>
 			</ul>

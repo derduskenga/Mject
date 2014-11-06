@@ -54,7 +54,9 @@
 <script type="text/javascript" src="../res/js/landing.js" ></script> 
 
 </head>
-<body>
+<body> 
+<span id="tag" style="display:none;"><%= (String)request.getAttribute("tag")%></span>
+<span id="referer" style="display:none;"><%= (String)request.getAttribute("referer")%></span> 
 	<div class="container-fluid">
 		<header class="row">
 			<!--<div class="col-md-2 col-md-offset-8 text-right" style="vertical-align:middle">need account?</div> -->

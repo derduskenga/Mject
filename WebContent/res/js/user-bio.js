@@ -1,5 +1,6 @@
 $(document).ready(function(){
-			var user = getUrlVars()["user"];
+var user = getUrlVars()["user"]; 
+
 			if(user==undefined || user==null || !user.trim()){
 				showNoUser();
 			}else if(Math.floor(user) == user && $.isNumeric(user)){
@@ -197,4 +198,32 @@ function applyConErrorCss(){
 
 function displayUserDataError(message){
 		alert("Error="+message);
+
 }
+
+
+// ******************************************** Donation and offers  *************************
+(function($){
+	"use strict"
+
+	$(function(){		
+		var user = getUrlVars()["user"]; 
+		// on donation request click
+		$("#user_donation_requests").click(function(e){
+			e.preventDefault();
+			$("#user_timeline").html(loadingImage());
+			donation_Offers_Requests("donation",user); //global methods in the window object
+			console.log(window);
+		});	
+		// on offer request click
+		$("#user_offer_contribution").click(function(e){
+			e.preventDefault();
+			$("#user_timeline").html(loadingImage());
+			donation_Offers_Requests("offer",user);
+		});
+	
+	});
+	
+
+// ******************************************** Offers  *************************
+})(jQuery)

@@ -42,7 +42,8 @@
 <script type="text/javascript" src="../res/js/import.js" ></script>
 <script type="text/javascript" src="../res/js/payment.js" ></script>
 <script type="text/javascript" src="../res/js/email_invite.js" ></script>
-<script type="text/javascript" src="../res/js/search.js" ></script>
+<script type="text/javascript" src="../res/js/search.js" ></script> 
+<script type="text/javascript" src="../res/js/notification_rest_handle.js" ></script> 
 <script type="text/javascript" src="../res/tipsy/js/jquery.tipsy.js"></script>
 
 

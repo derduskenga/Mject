@@ -58,12 +58,11 @@
 <body>
 	<div class="container-fluid">
 		<header class="row">
-			<div class="col-md-2 col-md-offset-8 text-right" style="vertical-align:middle">need account?</div> 
+			<!--<div class="col-md-2 col-md-offset-8 text-right" style="vertical-align:middle">need account?</div> -->
 			<div class="col-md-4 col-md-offset-7 text-right">				
 				<span><a href="../home"><button type="button" class="btn btn-danger">Skip to Home >> </button> </a></span>
 			</div>
-		</header>
-
+		</header>		
 		<div id="content" class="row">
 			<div id="json_test"></div>
 			<!--===========================================================================================-->

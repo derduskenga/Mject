@@ -18,13 +18,13 @@
 	c.add(Calendar.DATE, 1);
 	Date dt = c.getTime();
 	String nextdate = dateFormat.format(dt);
-%>
+%> 
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
 <meta charset="utf-8">
 <title>HaraMbesa</title>		
-	<%@ include file="../res/header_links.jsp" %>
+	<%@ include file="../res/header_links.jsp" %> 
 
 			<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 			<link rel="stylesheet" type="text/css" media="screen" href="../res/bootstrap/css/bootstrap.min.css">
@@ -54,6 +54,8 @@
 	
 	<script src="../res/js/setting_loader.js"></script>
  <!-- <script src="../res/js/change-profile.js"></script> --> 
+ 
+	<link rel="stylesheet" href="settings.css"> 
 </head>
 <body>
 	<div class="container-fluid">
@@ -63,6 +65,7 @@
 		<div id="content" class="row">
 			<!--==content left============== -->
 			<div id="main_content_left" class="col-xs-2 col-xs-offset-1">
+<<<<<<< HEAD
 				
 					<!-- <div class="row left-link profile-pic" id="profile-pic-section">
 							
@@ -84,10 +87,29 @@
 				 <div class="settings_page">
 
 				 </div>
+=======
+				<ul class="nav nav-pills nav-stacked">
+					<li class="active"><a href="">Profile</a></li>
+					<li id="passwordLoader"><a href="">Password Reset</a></li>
+					<li id="emailNotificationsLoader"><a href="">Email Notifications</a></li>
+
+				</ul>	 
+			</div><!--=============content left============-->
+			<!--==content middle============== -->
+			<div id="main_content_middle" class="col-xs-6">
+				<div id="errorArea"></div>
+				<div class="settings_page">
+					<div class="text-center">
+						<img src="../res/images/loading_site_green_small.gif">
+						<span> .......... Please wait as data is being loaded</span>
+					</div>
+				</div> 
+>>>>>>> 8a007329ddce8f0999eda73d05179b7214539c07
 			</div>
 			<!--=========== content middle-->
 			<!--==content right============== -->
 			<div id="main_content_right" class="col-xs-3">
+<<<<<<< HEAD
 				
 				<!-- <div class="account-summary">
 					<div class="harambesa-balance">
@@ -113,12 +135,23 @@
 		<!-- Bid Points Modal -->
 				
 		<!-- End Bid Points Modal -->
+=======
+				 
+			</div><!--=========== content right====-->
+			<!--===========================================================================================-->
+		</div> <!--/content-->
+		 
+>>>>>>> 8a007329ddce8f0999eda73d05179b7214539c07
 		<!-- footer========================== -->
 		<%@ include file="../res/includes/footer.jsp" %>
 		<!-- ===end footer========================= -->
 	</div> <!-- container-fluid -->
 </body>
+<<<<<<< HEAD
 </html>
 <%
 }
 %>
+=======
+</html>
+>>>>>>> 8a007329ddce8f0999eda73d05179b7214539c07

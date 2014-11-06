@@ -9,7 +9,7 @@ $(document).ready(function() {
 		$('#balance').html("Harambesa Balance: " + harambesa_bal_Global);
 		$('#points').html("Harambesa Points:" + harambesa_social_points_Global);
 		
-		if($('#id-mpesa-reference').length != 0){			
+		if($('#id-mpesa-reference').length != 0){
 			$('#id-mpesa-reference').html(user_id);
 		}
 		

@@ -1,0 +1,38 @@
+NOTIFICATIONS
+1. service offer (Utilities.NOTIFICATION_URL + "type=" + type + "&oi=" + rs.getString(1))  tag:s_offer
+
+2. material offer (Utilities.NOTIFICATION_URL + "type=" + type + "&oi=" + rs.getString(1))  tag:m_offer
+
+3. money offer (Utilities.NOTIFICATION_URL + "type=" + type + "&oi=" + rs.getString(1))  tag:offer
+
+
+4. offer application (Utilities.NOTIFICATION_URL + "type=" + type + "&t=" + name_of_table + "&oi=" + offer_id)  tag:offer_application
+
+5. service/material application acceptance (Utilities.NOTIFICATION_URL + "type=" + type + "&oi=" + offer_id + "&t=" +table_name)  tag:service_material_acceptance
+
+6. money application acceptance (Utilities.NOTIFICATION_URL + "type=" + type + "&oi=" + offer_id + "&t=" + table_name)  tag:money_acceptance
+
+7. closed_offer service/material (Utilities.NOTIFICATION_URL + "type=" + type + "&oi=" + offer_id + "&t=" + table_name)  tag:close_s_or_m_offer
+
+8. close_money_offer (Utilities.NOTIFICATION_URL + "type=" + type + "&oi=" + offer_id + "&t=" + table_name)  tag:close_money_offer 
+
+
+
+9. donation_request_comment (Utilities.NOTIFICATION_URL + "type=" + type + "&dri=" + donation_request_id)  tag:donation_request_comment 
+
+10. donate_to_request (Utilities.NOTIFICATION_URL + "type=" + type + "&dri=" + donation_request_id)  tag:make_donation
+
+
+usage url
+
+http://127.0.0.1:8080/mjet/home/?type=make_donation&dri=115
+
+service_offer before approvals
+
+http://127.0.0.1:8080/mjet/offer/?type=close_money_offer&oi=17&t=service_offer
+
+service_offer after approvals 
+
+http://127.0.0.1:8080/mjet/offer/?type=close_money_offer&oi=18&t=service_offer
+
+

@@ -12,13 +12,47 @@
 				<div id="json_test"></div>
 				<!-- ==========================================================================================-->
 				<!--===========================================================================================-->
-				<div id="content_right" class="col-lg-6 col-lg-offset-3">
+
+				<div id="content_right" class="col-sm-6 col-sm-offset-3">
 					<div class="row">	
 						<!--display user bio here -->
-						<div id="user-bio">
+						<div id="user-bio" class="col-sm-12">
 								
 						</div>
 						<!--End display user bio here -->
+						<div id="donation_offers"  class="col-sm-12">
+						<!-- Donations -->
+							<div class="btn-group">
+							  	<button type="button" class="btn btn-info">Donations</button>
+							  	<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+							    	<span class="caret"></span>
+							    	<span class="sr-only">Toggle Dropdown</span>
+							  	</button>
+							  	<ul class="dropdown-menu" role="menu">
+							    	<li id="user_donation_requests"><a href="">Requests</a></li>
+							    	<li id="user_donation_contributions"><a href="">Contributions</a></li> 
+							  	</ul>
+							</div>
+
+						<!-- Offers -->
+							<div class="btn-group">
+							  	<button type="button" class="btn btn-info">Offers</button>
+							  	<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+							    	<span class="caret"></span>
+							    	<span class="sr-only">Toggle Dropdown</span>
+							  	</button>
+							  	<ul class="dropdown-menu" role="menu">
+							    	<li id="user_offer_applications"><a href="">Applications</a></li>
+							    	<li id="user_offer_contribution"><a href="">Contributions</a></li> 
+							  	</ul>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-12" id="user_timeline">
+							
+						</div>
 					</div>
 				</div><!--=========== content_right-->
 				<!-- ==========================================================================================-->

@@ -1,0 +1,213 @@
+package com.harambesa.settings;
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse; 
+import javax.servlet.http.HttpSession;
+import javax.servlet.ServletException; 
+import com.harambesa.gServices.HarambesaUtils;
+
+import java.io.IOException;
+import java.io.PrintWriter; 
+
+import java.util.logging.Logger; 
+import java.util.Enumeration;
+import java.util.List;
+import java.util.LinkedList;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+
+import org.json.simple.JSONObject;
+import org.json.simple.JSONArray; 
+
+import com.harambesa.DBConnection.DBConnection;
+
+
+			 
+public class EmailNoficationsServlet extends HttpServlet { 
+    PrintWriter out = null;	
+    Logger log= null;
+    JSONObject jsonData = null;
+    Connection conn = null;
+    DBConnection db = null;
+
+  	public void init() throws ServletException {
+		log = Logger.getLogger(EmailNoficationsServlet.class.getName());
+		conn = new DBConnection()._getConnection(); 
+		jsonData = new JSONObject();
+		db = new DBConnection();
+    } 
+
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
+	throws ServletException,IOException {
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");	
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("entity_id");
+		out = response.getWriter();
+
+		try{
+			ResultSet results = entryExists(conn, id, "harambesa_settings", "entity_id");
+			if(results!=null){  
+				jsonData.put("connectionRequest",results.getString("connection_request"));	
+				jsonData.put("connectionRequiresDonation",results.getString("connection_requires_donation"));	
+				jsonData.put("connectionPlaceOffer",results.getString("connection_place_offer"));	
+				jsonData.put("connectionSellsPoints",results.getString("connection_sells_points"));	
+				jsonData.put("bidsOnMyPoints",results.getString("bids_on_my_points"));	
+				jsonData.put("purchasesOnMyPoints",results.getString("purchases_on_my_points"));	
+				jsonData.put("buyerAcceptsBid",results.getString("buyer_accepts_bid")); 			
+				
+			}else{
+				log.info("No record exists");
+			}
+			out.println(jsonData);
+		}catch(SQLException sql){
+			log.info(sql.getMessage());
+		}
+
+	}
+
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+	throws ServletException,IOException {
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");	
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("entity_id");
+		out = response.getWriter(); 
+		boolean connectionRequest = Boolean.parseBoolean(request.getParameter("connectionRequest"));
+		boolean connectionRequiresDonation = Boolean.parseBoolean(request.getParameter("connectionRequiresDonation")); 
+		boolean connectionPlaceOffer = Boolean.parseBoolean(request.getParameter("connectionPlaceOffer"));
+		boolean connectionSellsPoints = Boolean.parseBoolean(request.getParameter("connectionSellsPoints"));
+		boolean bidsOnMyPoints = Boolean.parseBoolean(request.getParameter("bidsOnMyPoints"));
+		boolean buyerAcceptsBid = Boolean.parseBoolean(request.getParameter("buyerAcceptsBid"));
+		boolean purchasesOnMyPoints = Boolean.parseBoolean(request.getParameter("purchasesOnMyPoints")); 
+
+		try{
+			ResultSet results = entryExists(conn,id,"harambesa_settings","entity_id");
+ // ******************** CREATE A NEW RECORD ************** 
+			if( results==null){				 
+				// sql 
+				String sql ="insert into harambesa_settings("+
+					"entity_id,connection_request,connection_requires_donation,connection_place_offer,"+
+					"connection_sells_points,bids_on_my_points,buyer_accepts_bid,purchases_on_my_points)"+
+					"values(?,?,?,?,?,?,?,?)";
+				// create prepared statement
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				// pass values 
+				pstmt.setInt(1,Integer.parseInt(id));
+				pstmt.setBoolean(2,connectionRequest);
+				pstmt.setBoolean(3,connectionRequiresDonation);
+				pstmt.setBoolean(4,connectionPlaceOffer);
+				pstmt.setBoolean(5,connectionSellsPoints);
+				pstmt.setBoolean(6,bidsOnMyPoints);
+				pstmt.setBoolean(7,buyerAcceptsBid); 
+				pstmt.setBoolean(8,purchasesOnMyPoints); 
+				int rowAffected = pstmt.executeUpdate();
+				log.info("rows affected"+rowAffected);
+				if(rowAffected>0){
+					jsonData.put("message", "success settings updated successfully"); 
+				}else{
+					jsonData.put("message", "Settings was not created");	
+					response.setStatus(404);			
+				}
+			}else{
+	// *************************************** UPDATE EXISTING RECORD **********************************
+							 
+				// sql 
+				String sql ="UPDATE harambesa_settings SET "+
+					"connection_request = ?,connection_requires_donation = ?,"+
+					"connection_place_offer = ?, connection_sells_points = ?, bids_on_my_points = ?,"+
+					"buyer_accepts_bid = ?, purchases_on_my_points = ?"+
+					"WHERE entity_id = ?";
+				// create prepared statement
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				// pass values  
+				pstmt.setBoolean(1,connectionRequest);
+				pstmt.setBoolean(2,connectionRequiresDonation);
+				pstmt.setBoolean(3,connectionPlaceOffer);
+				pstmt.setBoolean(4,connectionSellsPoints);
+				pstmt.setBoolean(5,bidsOnMyPoints);
+				pstmt.setBoolean(6,buyerAcceptsBid); 
+				pstmt.setBoolean(7,purchasesOnMyPoints); 
+				pstmt.setInt(8,Integer.parseInt(id)); 
+				int rowAffected = pstmt.executeUpdate();
+				log.info("rows affected"+rowAffected);
+				if(rowAffected>0){
+					jsonData.put("message", "success settings updated successfully"); 
+				}else{
+					jsonData.put("message", "Settings was not created");	
+					response.setStatus(404);			
+				}
+			}
+			results.close(); 
+		}catch(SQLException sql){
+			log.info(sql.getMessage());
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An internal server error occured, Please contact your administrator for assistance");
+		}
+
+		
+		out.print(jsonData);
+	} 
+
+	/**
+	*
+	*	Check if entry exists in the database
+	*
+	*	@param connection 	the database connection object
+	*	@param id 			the value to use to look up entry
+	*	@param table		the table to lookup the entry in 
+	*	@param column		the table column to lookup the value in
+	*
+	*
+	*	@return ResultSet	Returns a resultset with cursor at the first item
+	*/
+	public ResultSet entryExists(Connection conn, String id, String table, String column) throws SQLException{
+		ResultSet results=null;
+		// sql string
+		String sql = "select * from "+table+" where "+column+"=?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1,Integer.parseInt(id));
+		ResultSet rs = pstmt.executeQuery();
+		if(rs.next()){ 
+			results=rs;
+		}else{
+			log.info("No record exists");
+		}
+
+		return results;
+	}
+
+	/**
+	*
+	*	change character choices from user to boolean values for db
+	*
+	*	@param string 	takes a string value
+	*	@return boolean 	returns the boolen equivalent
+	*/
+	
+	public boolean isEmailSentToUser(String id, String column){
+		boolean flag = true;
+		
+		String sql = "SELECT " + column + " FROM harambesa_settings WHERE entity_id=?";
+		
+		try{
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setInt(1,Integer.parseInt(id));
+			ResultSet rs = st.executeQuery();
+			if(rs.next()){
+				flag = false;
+			}
+		}catch(SQLException sqle){
+			log.severe("Error: " + HarambesaUtils.getStackTrace(sqle));
+		}catch(Exception ex){
+			log.severe("Error: " + HarambesaUtils.getStackTrace(ex));
+		}finally{
+			db.closeDB();
+		}
+		return flag;
+	}
+}

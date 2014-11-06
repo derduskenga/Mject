@@ -23,15 +23,10 @@ if(request.getSession().getAttribute("entity_id")==null){
 		String offered_currency = request.getParameter("offered_currency");
 		String offered_category = request.getParameter("offered_category");
 		String offer_details = request.getParameter("offer_details");
-		String offer_summary = request. getParameter("offer_summary");
-					
-		//String offered_amount = "200";
-		//String offered_currency = "1";
-		//String offered_category = "2";
-		//String offer_details = "Education";
-		//String offer_summary = "High school fees";  
-		Offer offer = new Offer((String)request.getSession().getAttribute("entity_id"));		
-		obj = offer.savefferPost(offered_amount,offered_currency,offered_category,offer_details,offer_summary);
+		String offer_summary = request. getParameter("offer_summary");  
+		Offer offer = new Offer((String)request.getSession().getAttribute("entity_id"));
+		String offer_owner_names = (String)request.getSession().getAttribute("f_name") + " " + (String)session.getAttribute("l_name");
+		obj = offer.savefferPost(offered_amount,offered_currency,offered_category,offer_details,offer_summary,offer_owner_names);
 		
 		if((Integer)obj.get("success") == 1){
 			obj.put("names", request.getSession().getAttribute("f_name") + " " + (String)session.getAttribute("l_name"));
@@ -50,15 +45,21 @@ if(request.getSession().getAttribute("entity_id")==null){
 		out.print(obj);
 	}else if(tag.equals("save_offer_application")){ 
 		HttpSession p_session = request.getSession();
-		String user_entity_id = (String)p_session.getAttribute("entity_id");
-		String application_text = request.getParameter("application_text");
-		String offer_id = request.getParameter("offer_id");
-		String table_name = request.getParameter("table_name");
-		Offer offer = new Offer(user_entity_id);
 		JSONObject objS = new JSONObject();
-		objS = offer.saveOfferApplication(offer_id,application_text,table_name);
-		response.setContentType("application/json");
-		out.print(objS);
+		if((String)p_session.getAttribute("entity_id") != null){
+			String user_entity_id = (String)p_session.getAttribute("entity_id");
+			String application_text = request.getParameter("application_text");
+			String offer_id = request.getParameter("offer_id");
+			String table_name = request.getParameter("table_name");
+			Offer offer = new Offer(user_entity_id);
+			objS = offer.saveOfferApplication(offer_id,application_text,table_name);
+			response.setContentType("application/json");
+			out.print(objS);
+		}else{
+			objS.put("success",0);
+			objS.put("redir","../login");
+			out.print(objS);
+		}
 	}else if(tag.equals("offer_countries")){
 		Offer offer = new Offer((String)request.getSession().getAttribute("entity_id"));
 		response.setContentType("application/json");
@@ -81,11 +82,13 @@ if(request.getSession().getAttribute("entity_id")==null){
 		String hours_a_day = request.getParameter("hours_a_day");
 		String start_date = request.getParameter("start_date");
 		String service_offer_details = request.getParameter("service_offer_details");
+		String service_offer_owner_names = (String)request.getSession().getAttribute("f_name") + " " + (String)request.getSession().getAttribute("l_name");
 		
 		JSONObject obj = new JSONObject();
 		
 		try{
-			obj = offer.saveServiceOffer(service_name,service_countries,state,residence,hours_a_day,start_date,service_offer_details);
+			obj = offer.saveServiceOffer(service_name,service_countries,state,residence,hours_a_day,start_date,service_offer_details,service_offer_owner_names);
+
 		}catch(Exception ex){
 			//out.print(ex.getMessage().toString());
 		}
@@ -102,8 +105,7 @@ if(request.getSession().getAttribute("entity_id")==null){
 		String offer_owner_entity_id = request.getParameter("offer_owner_entity_id");
 		String table_name = request.getParameter("table_name");
 		String applicant_entity_id = request.getParameter("applicant_entity_id");
-		
-		JSONObject json = new JSONObject();		
+		JSONObject json = new JSONObject();
 		json = offer.saveApplicationAcceptance(offer_id,application_id,offer_owner_entity_id,applicant_entity_id,table_name);
 		response.setContentType("application/json");
 		out.print(json);
@@ -120,8 +122,6 @@ if(request.getSession().getAttribute("entity_id")==null){
 		jsonObj = offer.saveAcceptedMoneyApplication(offer_id,application_id,offer_owner_entity_id,applicant_entity_id,offer_type,table_name);
 		response.setContentType("application/json");
 		out.print(jsonObj);
-		
-		
 	}
 }
 %>

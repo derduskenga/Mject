@@ -10,6 +10,7 @@
 -- alter table donation_request_comments
 -- add comment_owner_full_name varchar(50) 
 
+--server password 9016gqRN7028y-
 
 
 
@@ -55,7 +56,7 @@ ALTER TABLE donations ADD donation_time timestamp WITHOUT time zone DEFAULT now(
 CREATE TYPE points_operation AS ENUM ('donation','sale','parchase');
 CREATE TABLE points_transactions(
 	points_transactions_id serial PRIMARY KEY,
-	points_transactions_date timestamp NOT NULL,
+	points_transactions_date timestamp NOT NULL DEFAULT now(),
 	points_transactions_entity_id integer references entitys(entity_id),
 	points_transactions_type points_operation NOT NULL,
 	number_of_points integer NOT NULL
@@ -276,6 +277,7 @@ EXECUTE PROCEDURE update_offer_tracker_on_application_acceptance(offers_table_id
 ALTER TABLE transactions ADD transaction_root text NOT NULL;
 
 
+
 ALTER TABLE points_transactions
 ADD buyer_entity_id integer REFERENCES entitys(entity_id),
 ADD points_sale_id integer REFERENCES points_sales(points_sale_id);
@@ -283,9 +285,126 @@ DROP TABLE points_transaction_extras;
 
 ALTER TABLE entitys ADD state varchar(32);
 
-//13/08/2013
+--//13/08/2013
 
 ALTER TABLE points_transactions ALTER COLUMN points_transactions_date SET DEFAULT now();
 ALTER TABLE transactions ALTER COLUMN currency DROP NOT NULL;
 ALTER TABLE transactions ALTER COLUMN donation_source DROP NOT NULL;
 ALTER TABLE transactions ALTER COLUMN transaction_root DROP NOT NULL;
+ALTER TABLE transactions ADD external_transaction_code varchar(32);--this field is for m-pesa/airtel transactions; mpesa code
+ALTER TABLE transactions ADD mobile_phone varchar(32);--this field is for m-pesa/airtel transactions;
+ALTER TABLE transactions ADD transaction_name varchar(64);
+
+--new table for bank request withdrawal
+
+--to server 
+alter table entitys ADD PRIMARY KEY(entity_id);
+CREATE TABLE bank_withdrawal_requests(
+	bank_withdrawal_requests_id serial PRIMARY KEY,
+	requestor_entity_id integer REFERENCES entitys(entity_id),
+	request_date timestamp DEFAULT now() NOT NULL,
+	request_amount real NOT NULL,
+	request_bank_name varchar(255) NOT NULL,
+	request_bank_branch varchar(255) NOT NULL,
+	request_account_number varchar(255) NOT NULL,
+	request_account_names varchar(255) NOT NULL,
+	request_bank_swift_code varchar(255) NOT NULL,
+	request_other_details text
+);
+
+ALTER TABLE bank_withdrawal_requests ADD currency varchar(32) NOT NULL;
+--Triger to record in transactions when abank withdraw request is made
+
+CREATE FUNCTION record_bank_withdraw_request()
+RETURNS TRIGGER AS $$
+BEGIN
+	INSERT INTO transactions (t_type,t_amount,entity_id,currency,transaction_root) 
+	VALUES('withdraw'::operations,NEW.request_amount,NEW.requestor_entity_id,NEW.currency,string_agg('withdraw via', NEW.request_bank_name));
+	return new;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER record_bank_withdraw 
+AFTER INSERT ON bank_withdrawal_requests
+FOR EACH ROW 
+EXECUTE PROCEDURE record_bank_withdraw_request();
+
+CREATE TABLE mobile_money_temp(
+	mobile_money_temp_id serial PRIMARY KEY,
+	transaction_code varchar(32) NOT NULL,
+	transaction_date varchar(32) NOT NULL,
+	transaction_amount real NOT NULL,
+	transaction_name varchar(64) NOT NULL,
+	transaction_paybill varchar(32) NOT NULL,
+	transaction_mobile varchar(32) NOT NULL,
+	entity_id integer REFERENCES entitys(entity_id) NOT NULL
+);
+ALTER TABLE mobile_money_temp ADD is_acknowledge boolean DEFAULT false;
+
+
+CREATE TRIGGER transfer_to_transactions
+AFTER UPDATE ON mobile_money_temp 
+FOR EACH ROW
+EXECUTE PROCEDURE transfer_mobile_temp_to_transactions();
+
+CREATE FUNCTION transfer_mobile_temp_to_transactions()
+RETURNS TRIGGER AS $$
+BEGIN
+	INSERT INTO transactions(t_type,t_amount,entity_id,currency,donation_source,transaction_root,external_transaction_code,mobile_phone,transaction_name)
+	VALUES('deposit'::operations,NEW.transaction_amount,NEW.entity_id,'KES','M-pesa','Loading account via M-pesa paybill',NEW.transaction_code,NEW.transaction_mobile,NEW.transaction_name);
+	return new;
+END;
+$$ LANGUAGE plpgsql;
+
+ALTER TABLE recommendations ADD recommended_post_owner_entity_id integer REFERENCES entitys(entity_id);
+
+CREATE TABLE notifications(
+	notification_id serial PRIMARY KEY NOT NULL,
+	originator_entity_id int NOT NULL REFERENCES entitys(entity_id),
+	notification_message text NOT NULL,
+	notification_url text NOT NULL
+);
+
+CREATE TABLE notification_recipients(
+	notification_recipients_id serial PRIMARY KEY NOT NULL,
+	notification_id integer REFERENCES notifications(notification_id),
+	notification_recipient_entity_id integer REFERENCES entitys(entity_id),
+	is_read boolean DEFAULT false NOT NULL	
+); 
+
+ALTER TABLE notifications ADD notification_recipients varchar(5)[];
+
+
+CREATE FUNCTION record_notification_recipients_to_notification_recipients()
+RETURNS TRIGGER AS $$
+DECLARE
+	recipientArray varchar(5)[] = NEW.notification_recipients;
+	i integer;
+BEGIN
+	FOREACH i IN ARRAY recipientArray LOOP
+		INSERT INTO notification_recipients(notification_id,notification_recipient_entity_id,is_read)
+		VALUES(NEW.notification_id,i,FALSE);
+	END LOOP;
+	return new;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE TRIGGER record_notification_recipients
+AFTER INSERT ON notifications 
+FOR EACH ROW 
+EXECUTE PROCEDURE record_notification_recipients_to_notification_recipients();
+
+
+ALTER TABLE notifications ADD notification_date timestamp DEFAULT now()
+
+alter table material_offer add approved boolean default false;
+alter table service_offer add approved boolean default false;
+
+alter table service_offer add offer_monetary_value numeric;
+alter table material_offer add offer_monetary_value numeric;
+
+alter table service_offer add currency_id integer REFERENCES entitys(entity_id);
+alter table material_offer add currency_id integer REFERENCES entitys(entity_id);
+
+alter table offers add accepted boolean default false NOT null;
