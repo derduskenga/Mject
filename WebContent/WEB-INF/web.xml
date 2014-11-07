@@ -13,11 +13,20 @@
 			<res-auth>Container</res-auth>
 	</resource-ref>
     <description>
-    </description>
+    </description> 
+
+<filter>
+	<filter-name>adminFilter</filter-name>
+	<filter-class>com.harambesa.settings.adminFilter</filter-class>
+</filter>
+<filter-mapping>
+	<filter-name>adminFilter</filter-name>
+	<url-pattern>/adminlogin</url-pattern>
+</filter-mapping> 
 <!-- expire session after 20 minutes -->
 <session-config>
     <session-timeout>20</session-timeout>
-</session-config>
+</session-config> 
 
 <servlet>
         <servlet-name>ProcessingServlet</servlet-name>
@@ -89,7 +98,16 @@
 	<url-pattern>/logout/*</url-pattern>
 </servlet-mapping>
 
-<servlet>
+<servlet> 
+	<servlet-name>adminSessionLogout</servlet-name>
+	<servlet-class>com.harambesa.gServices.adminLogout</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>adminSessionLogout</servlet-name>
+	<url-pattern>/adminLogout/*</url-pattern>
+</servlet-mapping>
+
+<servlet> 
         <servlet-name>MaterialOfferServlet</servlet-name>
         <servlet-class>com.harambesa.gServices.MaterialOffer</servlet-class>
 </servlet>
@@ -131,9 +149,44 @@
 </servlet>
 <servlet-mapping>
 	<servlet-name>UserData</servlet-name>
-	<url-pattern>/userdata/*</url-pattern>
-</servlet-mapping>   
+	<url-pattern>/userdata/*</url-pattern> 
+</servlet-mapping>
 
+<servlet>
+	<servlet-name>settings</servlet-name>
+	<servlet-class>com.harambesa.settings.Settings</servlet-class>
+</servlet> 
+<servlet-mapping>
+	<servlet-name>settings</servlet-name>
+	<url-pattern>/allsettings/*</url-pattern>
+</servlet-mapping> 
+
+<servlet>
+	<servlet-name>editProfile</servlet-name>
+	<servlet-class>com.harambesa.settings.profileEdit</servlet-class>
+</servlet> 
+<servlet-mapping>
+	<servlet-name>editProfile</servlet-name>
+	<url-pattern>/editProfileServlet/*</url-pattern>
+</servlet-mapping> 
+
+<servlet>
+	<servlet-name>adminServlet</servlet-name>
+	<servlet-class>com.harambesa.admin.admin</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>adminServlet</servlet-name>
+	<url-pattern>/adminlogin</url-pattern>
+</servlet-mapping>
+<servlet>
+	<servlet-name>adminlogs</servlet-name>
+	<servlet-class>com.harambesa.admin.adminLogs</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>adminlogs</servlet-name>
+	<url-pattern>/adminLogs</url-pattern>
+</servlet-mapping> 
+    
 <servlet>
 	<servlet-name>Notifications</servlet-name>
 	<servlet-class>com.harambesa.notification.NotificationProcessor</servlet-class>

@@ -55,8 +55,8 @@
 <script type="text/javascript" src="../res/js/log4javascript.js"></script> 
 <script type="text/javascript" src="../res/js/landing.js"></script> 
 <script type="text/javascript" src="../res/js/connections.js"></script> 
-<script type="text/javascript" src="../res/js/search.js"></script>
+<script type="text/javascript" src="../res/js/search.js"></script> 
+<script type="text/javascript" src="../res/js/commonfunctions.js"></script>  
 <script type="text/javascript" src="../res/js/settings/settings.js"></script>
 <script type="text/javascript" src="../res/js/admin/admin.js"></script>
-<script type="text/javascript" src="../res/js/user-dashboard/user_dashboard.js"></script>
-
+<script type="text/javascript" src="../res/js/user-dashboard/user_dashboard.js"></script> 

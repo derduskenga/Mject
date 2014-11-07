@@ -408,4 +408,3 @@ alter table service_offer add currency_id integer REFERENCES entitys(entity_id);
 alter table material_offer add currency_id integer REFERENCES entitys(entity_id);
 
 alter table offers add accepted boolean default false NOT null;
-

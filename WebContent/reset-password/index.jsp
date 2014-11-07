@@ -29,9 +29,11 @@
 						Double diff=rs.getDouble(1);
 						Boolean status =rs.getBoolean(3);
 						if(diff<0.0){
+
 							message="Your Password reset period has expired. Please request for password reset again.";
 						}else if(status == true){
 							message="You have already reset your password using this link.";
+
 						}
 					}else{
 							message="We could not find the page you requested.";

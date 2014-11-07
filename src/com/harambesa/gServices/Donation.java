@@ -6,10 +6,6 @@ import com.harambesa.DBConnection.GlobalDresser;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import java.util.logging.Logger;
-import com.harambesa.notification.Notifications;
-import com.harambesa.gServices.HarambesaUtils;
-import com.harambesa.gServices.Offer;
-import com.harambesa.Utility.Utilities;
 
 public class Donation{
 	//fields
@@ -26,7 +22,7 @@ public class Donation{
 		this.isDonationComplete = donation_status;
 	}
 	
-	public boolean getIsDonationComplete(){
+	public boolean getIsDonationComplete (){
 		return isDonationComplete;
 	}
 	
@@ -54,24 +50,12 @@ public class Donation{
 		JSONObject jObj = new JSONObject();
 		
 		if(recordTransaction(donor,donee,source_type,donation_request_id)){
-			//All was successifull
+			//all was successifull
 			jObj.put("success",1);
 			jObj.put("message","You successifully made a donation.");
 			jObj.put("account",getBalanceCheck());
 			jObj.put("donation_status",getIsDonationComplete());
 			jObj.put("donation_request_id",donation_request_id);
-			
-			String type = "make_donation";
-			String notification_url = Utilities.NOTIFICATION_URL + "home/?type=" + type + "&dri=" + donation_request_id;
-			String notification_msg = "<a href='../user/?user=" + donor + "'>" + new GlobalDresser(donor).getNames() +" made a donation on your request</a>";
-			String notification_originator = donee;
-
-			Notifications noti = new Notifications(donor);
-			String [] recipients = {donee};
-			noti.saveNotification(notification_url,notification_msg,notification_originator,recipients);
-			
-			
-		
 		}else{
 			//all transactions failed
 			jObj.put("success",0);

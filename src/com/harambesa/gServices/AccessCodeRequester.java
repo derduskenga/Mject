@@ -10,7 +10,7 @@ package com.harambesa.gServices;
 
   import java.net.URL;
   import javax.net.ssl.HttpsURLConnection;
- import com.harambesa.Utility.Utilities;
+  import com.harambesa.Utility.Utilities;
 
 public class AccessCodeRequester{
     //fields
@@ -51,6 +51,7 @@ public class AccessCodeRequester{
 	params.append("&redirect_uri=" + callback);
 	params.append("&grant_type=authorization_code");
 	String jsonResponse = "";
+
 	try
 	{
 	// Send data
@@ -64,7 +65,6 @@ public class AccessCodeRequester{
 	      // Get the response
 	      BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 	      String line;
-	      
 	      while ((line = rd.readLine()) != null)
 	      {
 		    jsonResponse = jsonResponse + line;

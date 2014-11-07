@@ -12,8 +12,8 @@
 	</path>
 	
 	<target name="init">
-		<mkdir dir="dist" />
-		<mkdir dir="WebContent/WEB-INF/classes" />
+		<mkdir dir="dist" /> 
+		<mkdir dir="WebContent/WEB-INF/classes" /> 
 	</target>
 	
 	<target name="compile" depends="init" >
