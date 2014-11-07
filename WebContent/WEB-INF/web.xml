@@ -244,6 +244,24 @@
     <servlet-name>pagination</servlet-name>
     <url-pattern>/pagination/*</url-pattern>
 </servlet-mapping>
+<servlet>
+    <servlet-name>yahoo</servlet-name>
+    <servlet-class>com.harambesa.yahoo.YahooServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>yahoo</servlet-name>
+    <url-pattern>/yahoo/*</url-pattern>
+</servlet-mapping>
+<servlet>
+    <servlet-name>callback</servlet-name>
+    <servlet-class>com.harambesa.yahoo.YahooCallback</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>callback</servlet-name>
+    <url-pattern>/callback/*</url-pattern>
+</servlet-mapping>
+
+
 
 <filter>
    <filter-name>harambesaFilter</filter-name>
@@ -257,4 +275,5 @@
 <listener>
     <listener-class>com.harambesa.admin.HarambesaListener</listener-class>
 </listener>
+
 </web-app>
